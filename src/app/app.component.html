@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary p-2 fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand text-white" [routerLink]="['']">{{ title }}</a>
+      <button class="navbar-toggler" type="button"></button> 
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link text-white ms-5" aria-current="page"  [routerLink]="['/home']">Accueil</a>
+          <a class="nav-link text-white ms-4"  [routerLink]="['/hotels']">Liste</a>
+          <a class="nav-link text-white ms-4"   [routerLink]="['/hotels', '0', 'edit']">Ajout d'hotel</a> 
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container p-5">
+    <div class="mt-5">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+ 

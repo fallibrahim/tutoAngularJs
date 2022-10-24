@@ -1,0 +1,74 @@
+<style>
+     .card :hover{
+      border:1px solid #bbb;
+    }
+</style>
+<div id="container">
+    <h2 *ngIf ="hotels && hotels.length > 0" class="mt-5">{{ title }}</h2>
+    <button class="btn btn-primary mb-2 d-flex" (click)="toggleIsNewBadge()">
+        <span class="material-icons">
+            {{showBadge ? 'visibility_off':'visibility'}}  
+        </span>  
+         <span class="ms-2"> 
+          {{showBadge ? 'cacher':'afficher'}}  nouveau 
+         </span>  
+    </button>
+    <hr>
+    <div class="my-2">
+     <div class="row">
+      <div class="col-md-4">
+        <span class="filter">filtre actuel :</span>
+        <strong>{{ hotelFilter }}</strong>
+      </div>
+      <div class="col-md-8 form-group">
+        <input type="text" class="form-control" [(ngModel)]="hotelFilter">
+      </div>
+      <p class="alert alert-primary" *ngIf="!!receiveRating">
+         {{ receiveRating }}
+      </p>
+     </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3">
+        <div class="col-mb-4" *ngFor ="let hotel of filteredHotels">
+            <div class="card">
+                <img [src]="hotel.imageUrl"
+                 [title]="hotel.nomHotels | uppercase" 
+                 class="card-img-top" [alt]="hotel.nomHotels">
+                <div class="card-body">
+                  <h5 class="card-title">{{ hotel.nomHotels | titlecase }}</h5>
+                  <p class="card-text">{{ hotel.description }}</p>
+                  <p class="card-text text-success">
+                    {{ hotel.prix | currency : "frcs" : "symbol" : "1.3-3" : "fr" }}
+                  </p> par nuit <br>
+                  <div class="d-flex justify-content-between align-items-baseline">
+                    <app-start-rating [rating]="hotel.rating" id="rating"
+                    (startRatingClicked)="receiveRatingClicked($event)">
+                  </app-start-rating>
+                    <span class="material-icons bg-info p-2 text-white rounded-circle btn"
+                     [routerLink]="['/hotels', hotel.id, 'edit']">
+                      edit
+                    </span>
+                    <span class="material-icons bg-primary p-2 text-white rounded-circle btn" 
+                    [routerLink]="['/hotels', hotel.id]">
+                      keyboard_arrow_right
+                    </span>
+                  </div>
+                  <div *ngFor="let tag of hotel.tags">
+                    <div *ngIf="showBadge">
+                      <span class="badge badge-pill bg-info">
+                        {{ tag }}
+                      </span> 
+                    </div>
+                  </div><br> <br>
+                  <button type="button" class="btn btn-primary">
+                    Vérifier la disponibilité
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>  
+        </div>
+      <div>
+
+
+
